@@ -1,0 +1,47 @@
+defaults:
+  - _self_
+
+# Data parameters
+data:
+  train_dir: "super_resolution_dataset/train"
+  val_dir: "super_resolution_dataset/val"
+  test_dir: "super_resolution_dataset/test"
+  batch_size: 16
+  num_workers: 4
+  high_res_size: 256
+  low_res_size: 64
+
+# Model parameters
+model:
+  generator:
+    num_residual_blocks: 16
+    num_filters: 64
+    use_attention: true
+  discriminator:
+    num_filters: 64
+    num_layers: 3
+    use_spectral_norm: true
+
+# Training parameters
+training:
+  max_epochs: 100
+  learning_rate: 0.0001
+  beta1: 0.9
+  beta2: 0.999
+  lambda_content: 1.0
+  lambda_adversarial: 0.1
+  lambda_perceptual: 0.1
+
+# Logging parameters
+logging:
+  save_dir: "logs"
+  log_every_n_steps: 100
+  save_top_k: 3
+  monitor: "val_psnr"
+  mode: "max"
+
+# Hardware parameters
+hardware:
+  accelerator: "gpu"
+  devices: 1
+  precision: 16 
